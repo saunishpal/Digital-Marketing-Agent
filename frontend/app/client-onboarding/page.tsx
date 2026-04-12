@@ -15,6 +15,5 @@ export default async function ClientOnboardingPage({
   searchParams: Promise<SearchParams>;
 }) {
   const params = await searchParams;
-
   return <ClientOnboardingClient searchParams={params} />;
 }

@@ -1,14 +1,34 @@
-"use client";
-
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import ProtectedShell from "@/components/ProtectedShell";
 import { postJson, putJson } from "@/lib/api";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function ClientOnboardingPage() {
-  const searchParams = useSearchParams();
+type SearchParams = {
+  demo_id?: string;
+  business_name?: string;
+  niche?: string;
+  city?: string;
+  whatsapp?: string;
+  services?: string;
+};
+
+export default async function ClientOnboardingPage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const params = await searchParams;
+
+  return <ClientOnboardingClient searchParams={params} />;
+}
+
+function ClientOnboardingClient({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  "use client";
 
   const [form, setForm] = useState({
     business_name: "",
@@ -25,16 +45,16 @@ export default function ClientOnboardingPage() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const demoId = searchParams.get("demo_id");
+  const demoId = searchParams.demo_id || "";
 
   useEffect(() => {
     setForm((prev) => ({
       ...prev,
-      business_name: searchParams.get("business_name") || "",
-      niche: searchParams.get("niche") || "",
-      city: searchParams.get("city") || "",
-      whatsapp: searchParams.get("whatsapp") || "",
-      services: searchParams.get("services") || "",
+      business_name: searchParams.business_name || "",
+      niche: searchParams.niche || "",
+      city: searchParams.city || "",
+      whatsapp: searchParams.whatsapp || "",
+      services: searchParams.services || "",
     }));
   }, [searchParams]);
 
@@ -43,7 +63,10 @@ export default function ClientOnboardingPage() {
       setLoading(true);
       setMessage("");
 
-      const data = await postJson<{ message: string }>("/api/business-profile/save", form);
+      const data = await postJson<{ message: string }>(
+        "/api/business-profile/save",
+        form
+      );
 
       if (demoId) {
         await putJson(`/api/demo-requests/${demoId}/status`, {
@@ -73,8 +96,8 @@ export default function ClientOnboardingPage() {
 
             {demoId && (
               <div className="mt-4 rounded-xl border border-cyan-400/20 bg-cyan-400/10 p-4 text-sm text-cyan-300">
-                This onboarding form was prefilled from a demo request. Saving this client
-                will also mark that demo request as converted.
+                This onboarding form was prefilled from a demo request. Saving this
+                client will also mark that demo request as converted.
               </div>
             )}
 

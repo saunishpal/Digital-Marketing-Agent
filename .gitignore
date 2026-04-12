@@ -1,0 +1,57 @@
+# System / logs
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+
+# Frontend (Next.js)
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/dist/
+frontend/coverage/
+frontend/.turbo/
+
+# Frontend env
+frontend/.env.local
+frontend/.env
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Backend (FastAPI / Python)
+backend/__pycache__/
+backend/**/*.pyc
+backend/**/*.pyo
+backend/**/*.pyd
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/.ruff_cache/
+
+# Virtual envs
+backend/venv/
+backend/.venv/
+venv/
+.venv/
+
+# Backend env
+backend/.env
+
+# Database
+backend/*.db
+backend/*.sqlite3
+backend/marketmind.db
+*.db
+*.sqlite3
+
+# Python packaging
+backend/*.egg-info/
+backend/build/
+backend/dist/

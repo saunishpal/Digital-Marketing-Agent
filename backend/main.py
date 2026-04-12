@@ -33,7 +33,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "https://digital-marketing-agent-frontend2.vercel.app"
+        "https://digital-marketing-agent-frontend3.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
